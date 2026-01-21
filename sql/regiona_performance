@@ -1,0 +1,20 @@
+CREATE OR REPLACE VIEW SUPERSTORE_DB.ANALYTICS.region_performance AS
+SELECT
+  s.region,
+  r.regional_manager,
+
+  SUM(s.sales)  AS total_sales,
+  SUM(s.profit) AS total_profit,
+
+  AVG(s.profit_margin) AS actual_profit_margin,
+  r.target_profit_margin,
+
+  AVG(s.days_to_ship) AS avg_days_to_ship
+
+FROM SUPERSTORE_DB.STAGING.stg_superstore s
+LEFT JOIN SUPERSTORE_DB.STAGING.stg_regional_lookup r
+  ON s.region = r.region
+GROUP BY
+  s.region,
+  r.regional_manager,
+  r.target_profit_margin;
