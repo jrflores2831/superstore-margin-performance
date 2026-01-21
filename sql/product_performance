@@ -1,0 +1,16 @@
+CREATE OR REPLACE VIEW SUPERSTORE_DB.ANALYTICS.product_performance AS
+SELECT
+  product_id,
+  category,
+  sub_category,
+
+  SUM(sales)    AS total_sales,
+  SUM(profit)   AS total_profit,
+  SUM(quantity) AS total_quantity,
+  AVG(discount) AS avg_discount
+
+FROM SUPERSTORE_DB.STAGING.stg_superstore
+GROUP BY
+  product_id,
+  category,
+  sub_category;
