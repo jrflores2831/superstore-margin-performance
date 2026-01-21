@@ -1,0 +1,9 @@
+CREATE OR REPLACE VIEW SUPERSTORE_DB.ANALYTICS.daily_sales AS
+SELECT
+  order_date,
+  SUM(sales)  AS total_sales,
+  SUM(profit) AS total_profit,
+  COUNT(DISTINCT order_id) AS orders,
+  COUNT(*) AS line_items
+FROM SUPERSTORE_DB.STAGING.stg_superstore
+GROUP BY order_date;
